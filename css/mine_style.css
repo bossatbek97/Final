@@ -1,0 +1,8 @@
+body {
+background:url(body1.jpg) repeat 0 0;
+color:#a7957a;
+}
+.container {
+	width: 400px;
+	margin: 0 auto;
+}
