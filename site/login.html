@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Marvel Stuff</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/login.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/jquery.jcarousel.css" type="text/css" media="all" />
+<link rel="shortcut icon" href="css/images/deadpool.png" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.jcarousel.pack.js"></script>
+<script type="text/javascript" src="js/func.js"></script>
+</head>
+<body>
+<div class="shell">
+  <div class="border">
+    <div id="header">
+      <h1 id="logo"><a href="#"><img src="css/images/drawing.png"></a></h1>
+      <div class="socials right">
+        <ul>
+          <li><a href="http://www.vk.com" class="vk">Vk</a></li>
+          <li><a href="http://www.facebook.com" class="fb">Facebook</a></li>
+          <li class="last"><a href="http://www.twitter.com" class="twit">Twitter</a></li>
+        </ul>
+      </div>
+      <div class="cl">&nbsp;</div>
+    </div>
+    <div id="navigation">
+      <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <li><a href="busket.html">Busket</a></li>
+      </ul>
+      <div class="cl">&nbsp;</div>
+    </div>
+    <div id="main">
+      <div id="content">
+          <h2>WELCOME TO OUR SHOP!</h2><br>
+          <h3>DO IT FASTER! SIGN IN AND BUY EVERYTHING!</h3></br></br>
+            <div class="image left">
+            <a href="#"><img src="css/images/welcome.jpg" alt="" style="width:500px;" /></a>
+            </div>
+              <input style="margin-left:20px;" type="email" placeholder="Email" name="email" id="email"/>
+              <br>
+              <input style="margin-left:20px; margin-top:15px;" type="password" placeholder="Password" name="password" id="password" />
+              <br>
+              <input style="margin-left:20px; margin-top:15px; border-radius:12px; background-color:red;" type="submit" onclick="login()" value="SIGN IN" name="submit"/>
+              <a href="register.php" style="font-size:20px;">I have not registered.</a>
+            <div class="cl">&nbsp;</div>
+            <div class="error" style="font-size:17px; color:red; padding:10px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cl">&nbsp;</div>
+    </div>
+  </div>
+  <div id="footer">
+    <p class="left"> | &copy;Marvel Stuff | All Rights Reserved | 2016</p>
+    <p class="right">Design by Kolganat Abzhamiyev</p>
+    <div class="cl">&nbsp;</div>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	function login(){
+		var password = $('#password').val();
+		var email = $('#email').val();
+		if (password==""||email=="") {
+			$(".error").html("FILL ALL FIELDS!!!");
+		}else{
+			if(!validateEmail(email)){
+				$(".error").html("ENTER CORRECT EMAIL!");
+			}else{
+				$.ajax({
+					type: 'POST',
+					url: 'logn.php',
+					data: 'email='+email+'&password='+password,
+					success: function(data){
+						console.log(data);
+						if (data=="user") {
+							window.location.replace("adminpage.php");
+						}else if (data=="admin") {
+							window.location.replace("index.php");
+						}else{
+							$(".error").html(data);
+						}
+					}
+				});
+			}
+		}
+	}
+	function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+</script>
